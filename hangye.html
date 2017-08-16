@@ -1,0 +1,383 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>行业信息</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="My Play Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, 
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- bootstrap -->
+<link href="css/bootstrap.min.css" rel='stylesheet' type='text/css' media="all" />
+<!-- //bootstrap -->
+<link href="css/dashboard.css" rel="stylesheet">
+<!-- Custom Theme files -->
+<link href="css/style.css" rel='stylesheet' type='text/css' media="all" />
+<script src="js/jquery-1.11.1.min.js"></script>
+<!--start-smoth-scrolling-->
+<!-- fonts -->
+<link href='http://fonts.useso.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+<link href='http://fonts.useso.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
+<!-- //fonts -->
+</head>
+  <body>
+
+  	<script>
+  	$(function(){
+	$(".yonghu").hide();
+
+	function denglu(){
+		$(".yonghu h3")[0].innerHTML=sessionStorage.name;
+		$("#signin1").hide();
+		$("#signin2").hide();
+		$('.yonghu').show();
+	}
+
+	function zhuxiao(){
+		
+		$("#signin1").show();
+		$("#signin2").show();
+		$('.yonghu').hide();
+
+		sessionStorage.name=null;
+		sessionStorage.type=null;
+		sessionStorage.no=null;
+		sessionStorage.bumen=null;
+
+		delete sessionStorage.no;
+	}
+
+	if(sessionStorage.length>=4){
+		denglu();
+	}else{
+		zhuxiao();
+	}
+	
+	
+	
+	$("#denglu").click(function(){
+		
+		$.ajax({
+			url:"UserManager",
+			datatype:"json",
+			type:"post",
+			data:{
+				functionID : "userLogin",
+				userNo : $.trim($("#username").val()),
+				userPwd : $.trim($("#password").val()),
+				},
+			success:function(data){
+				
+				
+				var str=eval('(' + data + ')');
+				
+				
+				sessionStorage.name=str.userName;
+				sessionStorage.type=str.userType;
+				sessionStorage.no=str.userNo;
+				sessionStorage.bumen=str.userClass;
+				
+				denglu();
+
+				}	
+		});
+
+		return false;
+	});
+
+	$(".yonghu #zhuxiao").click(function(){
+
+		zhuxiao();
+		
+		
+	});
+	$("#geren").click(function() {
+		/* Act on the event */
+		if(sessionStorage.length<4){
+			alert("请登录！");
+			return false;
+		}
+	});
+	$("#signup").click(function(){
+		$.ajax({
+			url:"UserManager",
+			datatype:"json",
+			type:"post",
+			data:{
+				functionID: "insertUser",
+				userName: $.trim($("#zcgh").val()),
+				
+				
+				userPwd: $.trim($("#zcmm").val()),
+				userType: $.trim($("#zclx").val())
+		},
+
+			success:function(data){
+				
+				if(data==1){
+					alert("添加成功");
+				}else{
+					alert("添加失败");
+
+				}
+
+			}	
+		});
+	});
+});
+
+
+</script>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="index.html"><h1><img src="images/logo.png" alt="" /></h1></a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+			<div class="top-search">
+				<form class="navbar-form navbar-right">
+					<input type="text" class="form-control" placeholder="Search...">
+					<input type="submit" value=" ">
+				</form>
+			</div> 
+			<div class="header-top-right">
+				
+
+
+				<div id="signin1" class="signin">
+					<a id="qwer" href="#small-dialog3" class="play-icon popup-with-zoom-anim">Sign Up</a>
+					<!-- pop-up-box -->
+									<script type="text/javascript" src="js/modernizr.custom.min.js"></script>    
+									<link href="css/popuo-box.css" rel="stylesheet" type="text/css" media="all" />
+									<script src="js/jquery.magnific-popup.js" type="text/javascript"></script>
+									<!--//pop-up-box -->
+									
+
+									<div id="small-dialog3" class="mfp-hide">
+										<h3>Create Account</h3>
+										<div class="social-sits">
+											<div class="facebook-button">
+												<a href="#">Connect with Facebook</a>
+											</div>
+											<div class="chrome-button">
+												<a href="#">Connect with Google</a>
+											</div>
+											<div class="button-bottom">
+												<p>Already have an account? <a href="#small-dialog" class="play-icon popup-with-zoom-anim">Login</a></p>
+											</div>
+										</div>
+										<div class="signup">
+											<form action="">
+												<input type="text" class="email" placeholder="Email" required="required" pattern="([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?" title="Enter a valid email"/>
+
+												<input type="password" placeholder="Password" required="required" pattern=".{6,}" title="Minimum 6 characters required" autocomplete="off" />
+
+												<input type="text" class="email" placeholder="Mobile Number" maxlength="10" pattern="[1-9]{1}\d{9}" title="Enter a valid mobile number" />
+
+												<input type="submit"  value="Sign Up"/>
+
+											</form>
+											
+										</div>
+										<div class="clearfix"> </div>  <!--3 -->
+									</div>	
+
+										
+
+									
+
+									<script>
+											$(document).ready(function() {
+											$('.popup-with-zoom-anim').magnificPopup({
+												type: 'inline',
+												fixedContentPos: false,
+												fixedBgPos: true,
+												overflowY: 'auto',
+												closeBtnInside: true,
+												preloader: false,
+												midClick: true,
+												removalDelay: 300,
+												mainClass: 'my-mfp-zoom-in'
+											});
+																											
+											});
+									</script>	
+				</div>	
+
+
+				<div id="signin2" class="signin">
+					<a href="#small-dialog" class="play-icon popup-with-zoom-anim">Sign In</a>
+
+					<div id="small-dialog" class="mfp-hide">
+						<h3>Login</h3>
+						<div class="social-sits">
+							<div class="facebook-button">
+								<a href="#">Connect with Facebook</a>
+							</div>
+							<div class="chrome-button">
+								<a href="#">Connect with Google</a>
+							</div>
+							<div class="button-bottom">
+								<p>New account? <a href="#small-dialog2" class="play-icon popup-with-zoom-anim">Signup</a></p>
+							</div>
+						</div>
+						<div class="signup">
+							<form id="form01">
+								<input id="username" type="text" class="email" placeholder="Enter email / mobile" required="required" />
+
+								<input id="password" type="password" placeholder="Password" required="required" title="Minimum 6 characters required" autocomplete="off" />
+
+								<input id="denglu" type="submit"  value="LOGIN"/>
+								<button>LOGIN</button>
+
+							</form>
+							
+							<div class="forgot">
+								<a href="#">Forgot password ?</a>
+							</div>
+						</div>
+						<div class="clearfix"> </div>
+					</div>
+
+				</div>
+											
+				
+
+				<div class="yonghu">
+					<div id="SOut" class="signin">
+					<input id="zhuxiao" type="submit"  value="Sign Out"/>
+					</div>
+					<h3>冯</h3>
+					<div id="touxiang"><img src="images/toux.jpeg"></div>					
+				</div>
+
+
+				<div class="clearfix"> </div>
+			</div>
+        </div>
+		<div class="clearfix"> </div>
+      </div>
+    </nav>
+
+
+        <div class="col-sm-3 col-md-2 sidebar">
+			<div class="top-navigation">
+				<div class="t-menu">MENU</div>
+				<div class="t-img">
+					<img src="images/lines.png" alt="" />
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+				<div class="drop-navigation drop-navigation">
+				  <ul class="nav nav-sidebar">
+					<li><a href="index.html" class="home-icon"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>首页</a></li>
+					<li><a id="geren" href="shows.html" class="user-icon"><span class="glyphicon glyphicon-home glyphicon-blackboard" aria-hidden="true"></span>T个人信息</a></li>
+					<li><a href="history.html" class="sub-icon"><span class="glyphicon glyphicon-home glyphicon-hourglass" aria-hidden="true"></span>行业信息</a></li>
+					<li><a href="#" class="menu1"><span class="glyphicon glyphicon-film" aria-hidden="true"></span>Movies<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></a></li>
+						
+						<!-- script-for-menu -->
+						<script>
+							$( "li a.menu1" ).click(function() {
+							$( "ul.cl-effect-2" ).slideToggle( 300, function() {
+							// Animation complete.
+							});
+							});
+						</script>
+					<li><a href="#" class="menu"><span class="glyphicon glyphicon-film glyphicon-king" aria-hidden="true"></span>所有课程<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></a></li>
+						<ul class="cl-effect-1">
+							<li><a href="sports.html">计算机</a></li>                                             
+							<li><a href="sports.html">人文社科</a></li>
+							<li><a href="sports.html">经管</a></li> 
+							<li><a href="sports.html">艺术</a></li>  
+						</ul>
+						<!-- script-for-menu -->
+						<script>
+							$( "li a.menu" ).click(function() {
+							$( "ul.cl-effect-1" ).slideToggle( 300, function() {
+							// Animation complete.
+							});
+							});
+						</script>
+					<li><a href="movies.html" class="song-icon"><span class="glyphicon glyphicon-music" aria-hidden="true"></span>留言板</a></li>
+					<li><a href="news.html" class="news-icon"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>关于我们</a></li>
+				  </ul>
+				  <!-- script-for-menu -->
+						<script>
+							$( ".top-navigation" ).click(function() {
+							$( ".drop-navigation" ).slideToggle( 300, function() {
+							// Animation complete.
+							});
+							});
+						</script>
+					<div class="side-bottom">
+						<div class="side-bottom-icons">
+							<ul class="nav2">
+								<li><a href="#" class="facebook"> </a></li>
+								<li><a href="#" class="facebook twitter"> </a></li>
+								<li><a href="#" class="facebook chrome"> </a></li>
+								<li><a href="#" class="facebook dribbble"> </a></li>
+							</ul>
+						</div>
+						<div class="copyright">
+							<p>Copyright &copy; 2015.Company name All rights reserved.More Templates <a href="http://www.cssmoban.com/" target="_blank" title=""></a> - Collect from <a href="http://www.cssmoban.com/" title="" target="_blank"></a></p>
+						</div>
+					</div>
+				</div>
+        </div>
+
+
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+			<div class="show-top-grids">
+				<div class="main-grids about-main-grids">
+					
+				</div>
+			</div>
+
+
+			<!-- footer -->
+			<div class="footer">
+				<div class="footer-grids">
+					<div class="footer-top">
+						<div class="footer-top-nav">
+							<ul>
+								<li><a href="about.html">About</a></li>
+								<li><a href="press.html">Press</a></li>
+								<li><a href="copyright.html">Copyright</a></li>
+								<li><a href="creators.html">Creators</a></li>
+								<li><a href="#">Advertise</a></li>
+								<li><a href="developers.html">Developers</a></li>
+							</ul>
+						</div>
+						<div class="footer-bottom-nav">
+							<ul>
+								<li><a href="terms.html">Terms</a></li>
+								<li><a href="privacy.html">Privacy</a></li>
+								<li><a href="#small-dialog4" class="play-icon popup-with-zoom-anim">Send feedback</a></li>
+								<li><a href="privacy.html">Policy & Safety </a></li>
+								<li><a href="try.html">Try something new!</a></li>
+							</ul>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+			<!-- //footer -->
+		</div>
+
+
+		<div class="clearfix"> </div>
+	
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+  </body>
+</html>
